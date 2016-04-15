@@ -29,6 +29,6 @@ buildImagesForSystem () {
   done
 }
 
-# buildImagesForSystem "base" || exit $?
-# buildImagesForSystem "extended"
-buildImageFromFile "extended-gmp/Dockerfile.fedora23"
+buildImagesForSystem "base" || exit $?
+buildImagesForSystem "extended"
+# buildImageFromFile "extended-gmp/Dockerfile.fedora23"
