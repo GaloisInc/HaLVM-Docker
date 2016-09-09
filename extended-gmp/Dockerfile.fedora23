@@ -13,3 +13,4 @@ RUN git clone http://github.com/acw/HTTP    && \
     (cd HTTP && halvm-cabal install)        && \
     rm -rf HTTP
 
+RUN dnf install -y ec2-unikernel

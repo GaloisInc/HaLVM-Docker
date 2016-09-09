@@ -14,3 +14,4 @@ RUN git clone http://github.com/acw/HTTP    && \
     rm -rf HTTP
 
 
+RUN dnf install -y ec2-unikernel
