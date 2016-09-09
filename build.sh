@@ -7,7 +7,7 @@ buildImage () {
 
   tmpdir=`mktemp -d -t halvmdocker-XXXXXX` || return 1
   cp $1 ${tmpdir}/Dockerfile
-  docker build -t ${imageName}:${imageTag} ${tmpdir} || (rm -rf ${tmpdir} && return 2)
+  docker build --no-cache -t ${imageName}:${imageTag} ${tmpdir} || (rm -rf ${tmpdir} && return 2)
   rm -rf ${tmpdir}
   return 0
 }
