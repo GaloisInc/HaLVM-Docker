@@ -1,9 +1,9 @@
 # our base image
 FROM fedora:24
 
-RUN dnf install -y http://repos.halvm.org/fedora-24/x86_64/halvm-yum-repo-24-3.fc24.noarch.rpm
+RUN dnf install -y http://repos.halvm.org/fedora-24/x86_64/halvm-yum-repo-24-3.fc24.noarch.rpm && dnf update -y
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-HaLVM
-RUN dnf install -y HaLVM vim tmux zsh git
+RUN dnf install -y HaLVM vim tmux zsh git ghc-compiler
 
 VOLUME  /halvm
 WORKDIR /halvm
