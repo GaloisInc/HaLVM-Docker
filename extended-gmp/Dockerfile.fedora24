@@ -1,16 +1,12 @@
 FROM halvm/base-gmp:fedora24
 
 RUN halvm-cabal update && \
-    halvm-cabal install cryptonite && \
-    halvm-cabal install hans && \
-    halvm-cabal install tls -f-network -fhans
-
-RUN git clone https://github.com/GaloisInc/network-hans && \
-    (cd network-hans && halvm-cabal install)            && \
-    rm -rf network-hans
+    halvm-cabal install --global cryptonite && \
+    halvm-cabal install --global hans && \
+    halvm-cabal install --global network-hans
 
 RUN git clone http://github.com/acw/HTTP    && \
-    (cd HTTP && halvm-cabal install)        && \
+    (cd HTTP && halvm-cabal install --global)  && \
     rm -rf HTTP
 
 RUN dnf install -y ec2-unikernel
