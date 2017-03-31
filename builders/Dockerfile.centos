@@ -1,0 +1,15 @@
+# our base image
+FROM centos:VERSION
+
+COPY centos-ghc.repo /etc/yum.repos.d/centos-ghc.repo
+RUN yum install -y epel-release centos-release-xen && yum update -y
+RUN yum install -y git ghc-compiler-8.0.2 cabal-install ghc-Cabal-devel   \
+        ghc-containers-devel ghc-terminfo-devel autoconf automake libtool \
+        findutils patch rpm-build zlib-devel xen-devel zsh vim tmux       \
+        chrpath gcc-c++ make
+RUN useradd -ms /bin/zsh builder
+RUN mkdir /halvm && chown builder:builder /halvm
+
+USER builder
+RUN cabal update && cabal install alex happy HsColour
+WORKDIR /halvm

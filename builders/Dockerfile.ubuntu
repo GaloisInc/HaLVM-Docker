@@ -1,0 +1,16 @@
+# our base image
+FROM ubuntu:VERSION
+
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:hvr/ghc && apt-get update && apt-get upgrade -y
+RUN apt-get install -y ghc-8.0.2 git cabal-install-1.24 autoconf automake   \
+                       LIBTOOL patch zlib1g-dev libxen-dev zsh vim tmux     \
+                       chrpath g++ debhelper libncurses5-dev
+ENV PATH=/opt/cabal/bin:/opt/ghc/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${HOME}/.cabal/bin:/opt/ghc/8.0.2/bin
+RUN useradd -ms /bin/zsh builder
+RUN mkdir /halvm && chown builder:builder /halvm
+
+USER builder
+COPY ubuntu.zshrc /home/builder/.zshrc
+RUN cabal update && cabal install alex happy HsColour
+WORKDIR /halvm
